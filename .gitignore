@@ -1,2 +1,46 @@
+# Ignore files containing sensitive information
+connection.py
+*.env
 .env
+.env.*
 data_exports/
+
+# Virtual Environment
+venv/
+ENV/
+env/
+.venv/
+.env/
+.ENV/
+.python-version
+.python-env/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store 
