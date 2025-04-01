@@ -43,7 +43,7 @@ def connect_to_db():
 
 
 
-
+# groups our issues by the user, which is a dictionary. this is important for our 80_20_rule.py 
 def get_issues_grouped_by_user(cursor, batch_size=5000) -> Dict[str, List[Dict[str, Any]]]:
     """
     Fetch issues from database and group them by creator ID.
@@ -115,7 +115,11 @@ def get_issues_grouped_by_user(cursor, batch_size=5000) -> Dict[str, List[Dict[s
         raise
 
 
-
+# function application:
+# allows us to save all the data into a json file, this is our method of creating static information.
+# without this, we would need to continuously run through the database and convert the data into dictionary form, which takes
+# a long period of time which is NOT useful at all. Since we are always using the same data no matter what, it is smarter to save
+# this data as a json file so we can use it instantly.
 def save_to_json_file(data: Dict, filename: str = "issues_export.json", output_dir: str = "data_exports") -> str:
     """
     Save dictionary data to a JSON file, overwriting any existing file.
@@ -168,6 +172,9 @@ def save_to_json_file(data: Dict, filename: str = "issues_export.json", output_d
     return file_path
 
 
+
+#Previous code that is now modified as seen above.
+#Saving for future reference if necessary
 '''
 def return_unique_ids(cursor):
     """Fetch unique issue IDs where Issue_Key is not NULL."""
