@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 import json
 from typing import Dict, List, Any
 from datetime import datetime
-
+import query_db
 
 def connect_to_db(): 
     """Establish and return a database connection and cursor."""
@@ -22,7 +22,7 @@ def connect_to_db():
         # Here you would execute your queries
         # # Fetch and group issues
         issues_data = get_issues_grouped_by_user(cursor)
-        #
+        
         # # Save to JSON file
         json_path = save_to_json_file(issues_data)          # creates out json path
 
@@ -40,3 +40,7 @@ def connect_to_db():
             conn.close()
         print("Connection resources released")
     return
+
+
+#test if connection works
+connect_to_db()
