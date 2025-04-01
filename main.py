@@ -1,3 +1,2 @@
-from database import connect_to_db
+from database import connect_to_db, query_db
 
-connect_to_db()
