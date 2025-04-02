@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 import json
 from typing import Dict, List, Any
 from datetime import datetime
-import query_db
+from query_db import get_issues_grouped_by_user, save_to_json_file
 
 def connect_to_db(): 
     """Establish and return a database connection and cursor."""

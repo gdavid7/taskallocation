@@ -4,7 +4,6 @@ from dotenv import load_dotenv
 import json
 from typing import Dict, List, Any
 from datetime import datetime
-import connect_to_db
 
 
 # groups our issues by the user, which is a dictionary. this is important for our 80_20_rule.py 
