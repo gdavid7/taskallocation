@@ -13,7 +13,7 @@ def cosine_similarity(vec1, vec2):
     return util.cos_sim(vec1, vec2).item()
 
 # Function to compare two tasks
-def compare_tasks(task1, task2, weight_desc=0.6, weight_code=0.4):
+def compare_tasks_cb(task1, task2, weight_desc=0.6, weight_code=0.4):
     # Get description embeddings
     desc1_embed = get_embedding(task1["description"])
     desc2_embed = get_embedding(task2["description"])
