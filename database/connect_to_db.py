@@ -43,4 +43,4 @@ def connect_to_db():
 
 
 #test if connection works
-connect_to_db()
+# connect_to_db()
