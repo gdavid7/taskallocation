@@ -4,6 +4,8 @@ import os
 from typing import Dict, List, Any
 import random
 
+# splits the data randomly according to the 80 20 rule
+# therefore we have two json files 1. testing 2. training
 def split_issues_80_20(input_file: str = "data_exports/issues_export.json",
                         train_file: str = "data_exports/issues_train.json",
                         test_file: str = "data_exports/issues_test.json"):
