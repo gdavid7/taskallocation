@@ -3,7 +3,7 @@ from split_issues import split_issues_80_20
 from models.codebert_model import compare_tasks_cb
 import os
 
-# CODEBERT MODEL COMPARISON TEST
+# ------------------------- START OF CODEBERT MODEL COMPARISON TEST  ------------------------- #
 # we need to split now
 train_issues_by_user, test_issues_by_user = split_issues_80_20()
 
@@ -37,3 +37,4 @@ with open("models/results.txt", "w", encoding="utf-8") as f:
     f.write(dumping_string)
 
 print("Overall score has been saved to 'models/results.txt'.")
+# ------------------------- END OF CODEBERT MODEL COMPARISON TEST  ------------------------- #
