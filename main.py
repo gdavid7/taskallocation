@@ -28,9 +28,7 @@ print(f"Overall Score = {overall:.4f}")
 # Create the string to dump the result into the file
 dumping_string = "Overall Score of the codebert model was: "
 dumping_string += str(overall)  # Correct conversion of float to string
-
-# Ensure the 'models' directory exists
-os.makedirs("models", exist_ok=True)
+os.makedirs("models", exist_ok=True) # Ensure the 'models' directory exists
 
 # Write the overall score to a text file inside the 'models' folder
 with open("models/results.txt", "w", encoding="utf-8") as f:
