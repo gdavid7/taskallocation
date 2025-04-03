@@ -6,44 +6,8 @@ from typing import Dict, List, Any
 from datetime import datetime
 
 
-def connect_to_db(): 
-    """Establish and return a database connection and cursor."""
-    load_dotenv()
-    try:
-        conn = mysql.connector.connect(
-            host=os.getenv("DB_HOST"),
-            user=os.getenv("DB_USER"),
-            password=os.getenv("DB_PASSWORD"),
-            database=os.getenv("DB_NAME"),
-            connect_timeout=10
-        )
-        cursor = conn.cursor(dictionary=True)  # Returns results as dictionaries
-        print("Connected to DB successfully")
-        # Here you would execute your queries
-        # # Fetch and group issues
-        issues_data = get_issues_grouped_by_user(cursor)
-        #
-        # # Save to JSON file
-        json_path = save_to_json_file(issues_data)          # creates out json path
-
-    except mysql.connector.Error as err:
-        print(f"Database error: {err}")
-        return None, None
-    except Exception as e:
-        print(f"Unexpected error: {e}")
-        return None, None
-    finally:
-        # Close connections when done
-        if 'cursor' in locals() and cursor:
-            cursor.close()
-        if 'conn' in locals() and conn:
-            conn.close()
-        print("Connection resources released")
-    return
-
-
-
-
+# groups our issues by the user, which is a dictionary. this is important for our 80_20_rule.py 
+# excules null users, therefore orgranized
 def get_issues_grouped_by_user(cursor, batch_size=5000) -> Dict[str, List[Dict[str, Any]]]:
     """
     Fetch issues from database and group them by creator ID.
@@ -114,8 +78,11 @@ def get_issues_grouped_by_user(cursor, batch_size=5000) -> Dict[str, List[Dict[s
             cursor.fetchall()
         raise
 
-
-
+# function application:
+# allows us to save all the data into a json file, this is our method of creating static information.
+# without this, we would need to continuously run through the database and convert the data into dictionary form, which takes
+# a long period of time which is NOT useful at all. Since we are always using the same data no matter what, it is smarter to save
+# this data as a json file so we can use it instantly.
 def save_to_json_file(data: Dict, filename: str = "issues_export.json", output_dir: str = "data_exports") -> str:
     """
     Save dictionary data to a JSON file, overwriting any existing file.
@@ -168,6 +135,11 @@ def save_to_json_file(data: Dict, filename: str = "issues_export.json", output_d
     return file_path
 
 
+
+
+
+#Previous code that is now modified as seen above.
+#Saving for future reference if necessary
 '''
 def return_unique_ids(cursor):
     """Fetch unique issue IDs where Issue_Key is not NULL."""
