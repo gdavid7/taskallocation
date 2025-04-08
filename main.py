@@ -1,17 +1,4 @@
-<<<<<<< HEAD
-from database import connect_to_db
-import models.codebert_model
 
-
-
-
-# Load the JSON data into a dict object
-
-# connecting to the database, creating the json file
-connect_to_db()
-
-
-=======
 import json
 from split_issues import split_issues_80_20
 from models.codebert_model import compare_tasks_cb
@@ -50,4 +37,3 @@ with open("models/results.txt", "w", encoding="utf-8") as f:
 
 print("Overall score has been saved to 'models/results.txt'.")
 # ------------------------- END OF CODEBERT MODEL COMPARISON TEST  ------------------------- #
->>>>>>> a2ced3d45a4b13fc8a646e682449c72fd264c179
