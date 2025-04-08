@@ -1,0 +1,10 @@
+Starting new results file
+Working on user 68
+Time elapsed: 0:00:00
+current accuracy: 0.0
+Working on user 71
+Time elapsed: 0:00:00
+current accuracy: 0.4838795065879822
+Working on user 72
+Time elapsed: 0:00:04
+current accuracy: 0.9309619003679694

@@ -1,8 +1,13 @@
 from sentence_transformers import SentenceTransformer, util
 import numpy as np
 
-# Load a sentence transformer model (Choose a model suited for code + text)
-model = SentenceTransformer("microsoft/codebert-base")  # Can replace with "codebert-base" for code-specific tasks
+try:
+    # Load a sentence transformer model (Choose a model suited for code + text)
+    model = SentenceTransformer('microsoft/codebert-base-mlm')  # Using the MLM version which is more reliable
+    print("Model loaded successfully!")
+except Exception as e:
+    print(f"Error loading model: {str(e)}")
+    raise
 
 # Function to get embeddings
 def get_embedding(text):
