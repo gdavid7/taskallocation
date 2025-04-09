@@ -19,25 +19,6 @@ def compute_average_similarity(model, test_embed, training_embeds:list) -> float
         count += 1
     return total_score / count
 
-# builds and sorts user score map
-def rank_users_by_similarity(model, test_embed, issues_embed) -> list:
-    score_map = {}
-    for user_id, training_embeds in issues_embed.items():
-        avg_score = compute_average_similarity(model, test_embed, training_embeds)
-        if avg_score > 0:
-            score_map[user_id] = avg_score
-    sorted_users = sorted(score_map.items(), key=lambda x: x[1], reverse=True)
-    return sorted_users
-
-# computes absolute rank and normalized score
-def get_user_ranking(actual_user, ranked_user_ids: list) -> tuple:
-    if actual_user in ranked_user_ids:
-        rank = ranked_user_ids.index(actual_user) + 1
-    else:
-        rank = len(ranked_user_ids) + 1
-    normalized_score = rank / len(ranked_user_ids)
-    return rank, normalized_score
-
 # compares a SINGLE task against each user to find average scores for each one
 def compare_single_task(model, testing_embed, database_embeds:dict) -> dict:
     # ex: comparing test task 1 against everything. issues_test is an embed
