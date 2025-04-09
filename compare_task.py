@@ -38,7 +38,6 @@ def get_user_ranking(actual_user, ranked_user_ids: list) -> tuple:
     normalized_score = rank / len(ranked_user_ids)
     return rank, normalized_score
 
-
 # compares a SINGLE task against each user to find average scores for each one
 def compare_single_task(model, testing_embed, database_embeds:dict) -> dict:
     # ex: comparing test task 1 against everything. issues_test is an embed
