@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> b80607cbd675be4c5c1cbe5079004298a527b996
 import json
 from split_issues import split_issues_80_20
 from models.codebert_model import compare_tasks_cb
@@ -12,7 +8,6 @@ from datetime import timedelta
 # create a function that takes in 3 formal paraemeters:
     # (model, test_task, train_task)
 
-<<<<<<< HEAD
 
 # # ------------------------- START OF CODEBERT MODEL COMPARISON TEST  ------------------------- #
 # # we need to split now
@@ -47,7 +42,6 @@ from datetime import timedelta
 
 # print("Overall score has been saved to 'models/results.txt'.")
 # # ------------------------- END OF CODEBERT MODEL COMPARISON TEST  ------------------------- #
-=======
 total_score = 0
 num_comparisons = 1
 unique_users = set()
@@ -108,15 +102,10 @@ try:
 except Exception as e:
     print(f"Error writing final results to file: {str(e)}")
 
-<<<<<<< HEAD
 # Write the overall score to a text file inside the 'models' folder
 with open("models/results.txt", "w", encoding="utf-8") as f:
     f.write(dumping_string)
 
 print("Overall score has been saved to 'models/results.txt'.")
 # ------------------------- END OF CODEBERT MODEL COMPARISON TEST  ------------------------- #
-=======
-print("Results have been saved to 'models/results.txt'.")
-# ------------------------- END OF CODEBERT MODEL COMPARISON TEST  ------------------------- #
->>>>>>> b80607cbd675be4c5c1cbe5079004298a527b996
->>>>>>> 5ed6913f0aa27fdc6aa9ee23df9511ba62124963
+
