@@ -2,11 +2,13 @@
     # (model, test_task, train_task)
 
 # maybe we can use matplotlab to plot the progression?
-# maybe we can use matplotlab to plot the progression?
 import json
 
 # scoring logic and skips same embed
-def compute_average_similarity(model, test_embed, training_embeds):
+def compute_average_similarity(model, test_embed, training_embeds:list) -> float:
+    # Iterates through embeds for one user
+    if len(training_embeds == 0):
+        return 0
     total_score = 0
     count = 0
     for train_embed in training_embeds:
@@ -15,10 +17,10 @@ def compute_average_similarity(model, test_embed, training_embeds):
         score = model.compare(test_embed, train_embed)
         total_score += score
         count += 1
-    return total_score / count if count > 0 else 0
+    return total_score / count
 
 # builds and sorts user score map
-def rank_users_by_similarity(model, test_embed, issues_embed):
+def rank_users_by_similarity(model, test_embed, issues_embed) -> list:
     score_map = {}
     for user_id, training_embeds in issues_embed.items():
         avg_score = compute_average_similarity(model, test_embed, training_embeds)
@@ -28,7 +30,7 @@ def rank_users_by_similarity(model, test_embed, issues_embed):
     return sorted_users
 
 # computes absolute rank and normalized score
-def get_user_ranking(actual_user, ranked_user_ids):
+def get_user_ranking(actual_user, ranked_user_ids: list) -> tuple:
     if actual_user in ranked_user_ids:
         rank = ranked_user_ids.index(actual_user) + 1
     else:
@@ -36,21 +38,15 @@ def get_user_ranking(actual_user, ranked_user_ids):
     normalized_score = rank / len(ranked_user_ids)
     return rank, normalized_score
 
-# compares the tasks
-def compare_task(model, issues_test, issues_embed, getUserID):
+
+# compares a SINGLE task against each user to find average scores for each one
+def compare_task(model, testing_embed, database_embeds:dict) -> dict:
+    # ex: comparing test task 1 against everything. issues_test is an embed
     results = {}
-
-    for issue_id, test_embed in issues_test.items():
-        sorted_users = rank_users_by_similarity(model, test_embed, issues_embed)
-        ranked_user_ids = [user_id for user_id, _ in sorted_users]
-        actual_user = getUserID(issue_id)
-        rank, normalized_score = get_user_ranking(actual_user, ranked_user_ids)
-
-        results[issue_id] = {
-            "actual_user": actual_user,
-            "rank": rank,
-            "normalized_score": normalized_score,
-            "sorted_users": ranked_user_ids
-        }
-
+        # Now we have our embed that we want to compare against all the other ones
+        # Comparing against all users in the database:
+    for user_ID, user_embeds in database_embeds.items():
+        user_avg_similarity = compute_average_similarity(model, testing_embed, user_embeds)
+        # store the similarity score for the user
+        results[user_ID] = user_avg_similarity
     return results
