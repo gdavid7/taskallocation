@@ -49,4 +49,4 @@ def split_issues_80_20(input_file: str = "data_exports/issues_export.json",
     return train_data, test_data
 
 # Run the function
-# split_issues_80_20()
+split_issues_80_20()
