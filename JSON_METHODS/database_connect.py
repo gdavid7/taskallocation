@@ -1,10 +1,9 @@
 import mysql.connector
 import os
 from dotenv import load_dotenv
-import json
 from typing import Dict, List, Any
 from datetime import datetime
-from database_query import get_issues_grouped_by_user, save_to_json_file
+from JSON_METHODS.database_query import get_issues_grouped_by_user as get_issues_grouped_by_user
 
 def connect_to_db(): 
     """Establish and return a database connection and cursor."""
@@ -22,9 +21,9 @@ def connect_to_db():
         # Here you would execute your queries
         # # Fetch and group issues
         issues_data = get_issues_grouped_by_user(cursor)
-        
+        #return issues_data
         # # Save to JSON file
-        json_path = save_to_json_file(issues_data)          # creates out json path
+        #json_path = save_to_json_file(issues_data)          # creates out json path
 
     except mysql.connector.Error as err:
         print(f"Database error: {err}")
@@ -39,8 +38,4 @@ def connect_to_db():
         if 'conn' in locals() and conn:
             conn.close()
         print("Connection resources released")
-    return
-
-
-#test if connection works
-connect_to_db()
+    return issues_data
