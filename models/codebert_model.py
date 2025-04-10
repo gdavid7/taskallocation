@@ -1,8 +1,7 @@
-from parent_model import Model
+from parent_class import Model
 
 from sentence_transformers import SentenceTransformer, util
 import numpy as np
-
 
 class Codebert(Model):
     def __init__(self, name):
