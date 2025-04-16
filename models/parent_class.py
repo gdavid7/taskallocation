@@ -9,8 +9,8 @@ class Model(ABC):
     def get_embedding(self, text):
         pass
     
-    def convert(self, issue: dict, model) -> list:
-        description_embed = model.get_embedding(issue["description"])
+    def convert(self, issue: dict) -> list:
+        description_embed = self.get_embedding(issue["description"])
         # if issue.get("code"):
         #     code_embed = model.get_embedding(issue["code"])
         #     return [description_embed, code_embed]

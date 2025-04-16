@@ -1,12 +1,16 @@
 import JSON_METHODS.create_issues_export
 import JSON_METHODS.json_save
+#from models.child_classes.codebert_model import Codebert
+import models.parent_class
+import models.child_classes.codebert_model
 
 print("PERFORMANCE BASED TAASK ALLOCATION WITH PAST SPRINT DATA")
 if __name__ == '__main__':
 
     # LOAD THE MODELS
-    model = None # fill this in
-
+    #model = models.child_classes.codebert_model.Codebert("CodeBERT") # fill this in
+    model = models.child_classes.codebert_model.Codebert(name="codebert_similarity_model")
+    print(model.name())
 
     # PHASE 1: Create the JSON File
     print("Phase 1: Grabbing users and issues from TAWOS Database:")
