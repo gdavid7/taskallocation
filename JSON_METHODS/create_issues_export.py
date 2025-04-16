@@ -13,7 +13,7 @@ def convertToEmbed(model, issuesDict:dict) -> dict:
     totalProcessed = 0
     newDict = {}
     for user, issues in issuesDict.items():
-        if totalProcessed % 500 == 0:
+        if totalProcessed % 100 == 0:
             print(f"Processed {totalProcessed} users so far")
         totalProcessed+=1
         issuesEmbeds = []
