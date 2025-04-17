@@ -13,8 +13,7 @@ def convertToEmbed(model, issuesDict:dict) -> dict:
     totalProcessed = 0
     newDict = {}
     for user, issues in issuesDict.items():
-        if totalProcessed % 100 == 0:
-            print(f"Processed {totalProcessed} users so far")
+        print(f"Processed {totalProcessed} users so far")
         totalProcessed+=1
         issuesEmbeds = []
 
@@ -24,7 +23,7 @@ def convertToEmbed(model, issuesDict:dict) -> dict:
                 issuesEmbeds.append(model.convert(issue)) # This syntax is wrong so it needs to be changed
 
         newDict[user] = issuesEmbeds
-        if totalProcessed >= 1000:
+        if totalProcessed >= 500:
             break
     return newDict
             

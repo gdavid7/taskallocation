@@ -3,7 +3,14 @@ from dotenv import load_dotenv
 import json
 from typing import Dict, List, Any
 from datetime import datetime
+import numpy as np
 
+# Add a custom encoder class for NumPy arrays
+class NumpyEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()  # Convert numpy arrays to lists
+        return json.JSONEncoder.default(self, obj)
 
 
 def save_to_json_file(data: Dict, filename: str = "issues_export.json", output_dir: str = "data_exports") -> str:
@@ -34,7 +41,7 @@ def save_to_json_file(data: Dict, filename: str = "issues_export.json", output_d
     
     # Write data to JSON file with pretty formatting, overwriting any existing file
     with open(file_path, 'w', encoding='utf-8') as f:
-        json.dump(data, f, indent=2, ensure_ascii=False)
+        json.dump(data, f, indent=2, ensure_ascii=False, cls=NumpyEncoder)
     
     # Log this export
     log_file = os.path.join(output_dir, "export_log.txt")

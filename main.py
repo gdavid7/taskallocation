@@ -8,7 +8,6 @@ print("PERFORMANCE BASED TAASK ALLOCATION WITH PAST SPRINT DATA")
 if __name__ == '__main__':
 
     # LOAD THE MODELS
-    #model = models.child_classes.codebert_model.Codebert("CodeBERT") # fill this in
     model = models.child_classes.codebert_model.Codebert(name="codebert_similarity_model")
     print(model.name())
 
@@ -19,7 +18,3 @@ if __name__ == '__main__':
     JSON_METHODS.json_save.save_to_json_file(user_embeds) # Saving the data to data_exports/issues_export.json
 
     
-    
-
-
-
