@@ -4,6 +4,7 @@ connection.py
 .env
 .env.*
 data_exports/
+archives/
 
 # Virtual Environment
 venv/
