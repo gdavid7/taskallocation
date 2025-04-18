@@ -23,7 +23,15 @@ class Codebert(Model):
         return util.cos_sim(vec1, vec2).item()
 
     # Function to compare two tasks
-    def compare(self, task1, task2, weight_desc=0.6, weight_code=0.4):
+    def compare(self, task1, task2):
+
+        # Compute similarity for descriptions
+        desc_similarity = self.cosine_similarity(task1, task2)
+
+        return desc_similarity
+
+    # Function to compare two tasks ARCHIVED
+    def __compare(self, task1, task2, weight_desc=0.6, weight_code=0.4):
         # Get description embeddings
         desc1_embed = self.get_embedding(task1["description"])
         desc2_embed = self.get_embedding(task2["description"])
