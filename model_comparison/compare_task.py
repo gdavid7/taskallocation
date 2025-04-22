@@ -6,6 +6,12 @@ import json
 
 # scoring logic and skips same embed
 def compute_average_similarity(model, test_embed, training_embeds:list) -> float:
+    # Extract Embeds:
+    embeds = []
+    for x in training_embeds:
+        embeds.append(x['embed'])
+    training_embeds = embeds
+
     # Iterates through embeds for one user
     if len(training_embeds) == 0:
         return 0
@@ -27,7 +33,6 @@ def compare_single_task(model, testing_embed, database_embeds:dict) -> dict:
         # Now we have our embed that we want to compare against all the other ones
         # Comparing against all users in the database:
     for user_ID, user_embeds in database_embeds.items():
-        print(user_ID, user_embeds)
         user_avg_similarity = compute_average_similarity(model, testing_embed, user_embeds)
         # store the similarity score for the user
         results[user_ID] = user_avg_similarity

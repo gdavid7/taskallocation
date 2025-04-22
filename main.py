@@ -6,7 +6,7 @@ import models.child_classes.codebert_model
 import data_exports.testingEmbeds
 import JSON_METHODS.import_logic
 import model_comparison.compare_task
-
+import data_science.ranking_algorithm
 
 print("PERFORMANCE BASED TAASK ALLOCATION WITH PAST SPRINT DATA")
 if __name__ == '__main__':
@@ -21,16 +21,23 @@ if __name__ == '__main__':
     user_embeds = JSON_METHODS.create_issues_export.convertToEmbed(model, user_issues) # Convert each issue into an NLP embed
     JSON_METHODS.json_save.save_to_json_file(user_embeds) # Saving the data to data_exports/issues_export.json
     '''
-
+    
     # Import the testing data into an object
     data = JSON_METHODS.import_logic.load_data()
-    print("Testing Task: " + str(data["68"]))
-    '''
+    
 
     # Get an Embed as the testing data
     testing = {68:data_exports.testingEmbeds.testingEmbed()}
     
     # Get the rankings
     results = model_comparison.compare_task.compare_all_task(model, testing, data)
-    print(results)
-    '''
+
+    # Sort them in order
+    print("SORTING RESULTS: \n")
+    sortedResults = data_science.ranking_algorithm.sort(results)
+    print(sortedResults)
+    
+    algorithm_result = data_science.ranking_algorithm.run(list(sortedResults[68].keys()), "68")
+    print(algorithm_result)
+
+    
