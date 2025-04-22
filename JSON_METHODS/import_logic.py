@@ -7,8 +7,7 @@ def load_data():
         data = json.load(f)
     
     # Convert lists back to numpy arrays for each user
-    for user_id in data:
-        for i in range(len(data[user_id])):
-            data[user_id][i] = np.array(data[user_id][i])
-    
+    for key, value in data.items():
+        for e in value:
+            e['embed'] = np.array(e['embed'])
     return data

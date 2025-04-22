@@ -29,7 +29,18 @@ class Codebert(Model):
         desc_similarity = self.cosine_similarity(task1, task2)
 
         return desc_similarity
+    
+    def convert(self, issue: dict) -> list:
+                # Concatenate title, description, and code into one string
+        title = issue.get("title", "")
+        description = issue.get("description", "")
+        code = issue.get("code", "")
 
+        # Combine them in a way that makes sense, you could use delimiters if needed for clarity
+        combined_text = f"Title: {title}\nDescription: {description}\nCode: {code}"
+        description_embed = self.get_embedding(combined_text)
+        return description_embed
+    
     # Function to compare two tasks ARCHIVED
     def __compare(self, task1, task2, weight_desc=0.6, weight_code=0.4):
         # Get description embeddings

@@ -18,7 +18,7 @@ def get_issues_grouped_by_user(cursor, batch_size=5000) -> Dict[str, List[Dict[s
     try:
         cursor.execute("""
             SELECT
-                Creator_ID, ID, Issue_Key, Title, Description, Description_Code
+                Creator_ID, ID, Issue_Key, Title, Description, Description_Code, Project_ID
             FROM Issue
             WHERE Issue_Key IS NOT NULL
             ORDER BY Creator_ID;
@@ -52,7 +52,8 @@ def get_issues_grouped_by_user(cursor, batch_size=5000) -> Dict[str, List[Dict[s
                     'issue_key': row['Issue_Key'],
                     'title': row['Title'],
                     'description': row['Description'],
-                    'description_code': row['Description_Code']
+                    'description_code': row['Description_Code'],
+                    'project_id':row['Project_ID']
                 }
 
                 # CONVERT THE ISSUE INTO AN NLP EMBED (NEW METHOD)
