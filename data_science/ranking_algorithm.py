@@ -57,8 +57,6 @@ def run(sprint_ranking:list, sprint_actual_user:str):
     
     # Find the rank position (1-indexed)
     rank = sprint_ranking.index(sprint_actual_user) + 1
-    
-    print(f"Sprint 1:")
     print(f"  Model ranking: {sprint_ranking}")
     print(f"  Actual assigned user: {sprint_actual_user}")
     print(f"  Rank position: {rank}")

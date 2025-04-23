@@ -35,7 +35,7 @@ if __name__ == '__main__':
     ndcg_scores = {}
     for user_id, tasks in testingData.items():
         for task in tasks:
-            task_results = model_comparison.compare_task.compare_single_task(model, task['embed'], trainingData)
+            task_results = model_comparison.compare_task.compare_single_task(model, task, trainingData)
             sorted_results_list = sorted(task_results.keys(), key=lambda k: task_results[k], reverse=True)
             algorithm_result = data_science.ranking_algorithm.run(sorted_results_list, user_id)
             ndcg_scores[task['id']] = algorithm_result

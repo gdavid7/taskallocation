@@ -11,7 +11,6 @@ import random
 import os
 from typing import Dict, List, Any
 
-
 def split_data(
     input_file_path: str = "data_exports/issues_export.json",
     train_ratio: float = 0.8,
@@ -20,8 +19,8 @@ def split_data(
     random_seed: int = 42
 ):
     """
-    Split JSON data into training and testing sets, allowing tasks from 
-    the same user to appear in both sets.
+    Split JSON data into training and testing sets, completely removing users 
+    with only one task from both output files.
     
     Args:
         input_file_path: Path to the input JSON file
@@ -40,15 +39,29 @@ def split_data(
     
     print(f"Loaded data with {len(data)} users")
     
-    # Create a list of all user-task pairs
-    all_pairs = []
+    # Filter out users with only one task
+    multi_task_users = {}
+    single_task_users = {}
+    
     for user_id, tasks in data.items():
+        if len(tasks) > 1:
+            multi_task_users[user_id] = tasks
+        else:
+            single_task_users[user_id] = tasks
+    
+    # Report on filtering
+    print(f"Filtered out {len(single_task_users)} users with only one task")
+    print(f"Keeping {len(multi_task_users)} users with multiple tasks")
+    
+    # Create a list of all user-task pairs for multi-task users
+    all_pairs = []
+    for user_id, tasks in multi_task_users.items():
         for task in tasks:
             all_pairs.append((user_id, task))
     
     # Count total tasks
     total_tasks = len(all_pairs)
-    print(f"Total tasks: {total_tasks}")
+    print(f"Total tasks from multi-task users: {total_tasks}")
     
     # Shuffle the pairs
     print(f"Shuffling {len(all_pairs)} user-task pairs...")
@@ -58,9 +71,6 @@ def split_data(
     split_idx = int(total_tasks * train_ratio)
     train_pairs = all_pairs[:split_idx]
     test_pairs = all_pairs[split_idx:]
-    
-    print(f"Training set: {len(train_pairs)} tasks ({len(train_pairs)/total_tasks:.1%})")
-    print(f"Testing set: {len(test_pairs)} tasks ({len(test_pairs)/total_tasks:.1%})")
     
     # Reorganize into the original format
     train_data = {}
@@ -75,6 +85,9 @@ def split_data(
         if user_id not in test_data:
             test_data[user_id] = []
         test_data[user_id].append(task)
+    
+    print(f"Training set: {len(train_pairs)} tasks ({len(train_pairs)/total_tasks:.1%})")
+    print(f"Testing set: {len(test_pairs)} tasks ({len(test_pairs)/total_tasks:.1%})")
     
     # Save the training and testing data with nice formatting
     with open(train_output_path, 'w') as file:
@@ -94,7 +107,7 @@ def split_data(
     print(f"\nSummary:")
     print(f"Users in training set: {len(train_users)}")
     print(f"Users in testing set: {len(test_users)}")
-    print(f"Users in both sets: {len(common_users)} ({len(common_users)/len(data):.1%} of all users)")
+    print(f"Users in both sets: {len(common_users)} ({len(common_users)/len(multi_task_users):.1%} of multi-task users)")
     
     # Show task distribution for users who appear in both sets
     if len(common_users) > 0:
@@ -105,7 +118,6 @@ def split_data(
             total_count = train_count + test_count
             print(f"  User {user_id}: {train_count} tasks in training ({train_count/total_count:.1%}), " +
                   f"{test_count} tasks in testing ({test_count/total_count:.1%})")
-
 '''
 if __name__ == "__main__":
     # Example usage
