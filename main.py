@@ -9,6 +9,7 @@ import model_comparison.compare_task
 import data_science.ndcg
 import data_science.mean_reciprocal_rank
 import JSON_METHODS.data_split
+import data_science.formulas
 
 print("PERFORMANCE BASED TAASK ALLOCATION WITH PAST SPRINT DATA")
 if __name__ == '__main__':
@@ -35,21 +36,28 @@ if __name__ == '__main__':
 
     ndcg_scores = {}
     mrr_scores = {}
+    pri_scores = {}
     for user_id, tasks in testingData.items():
         for task in tasks:
             task_results = model_comparison.compare_task.compare_single_task(model, task, trainingData)
             sorted_results_list = sorted(task_results.keys(), key=lambda k: task_results[k], reverse=True)
             #algorithm_result_ndcg = data_science.ndcg.run(sorted_results_list, user_id)
-            algorithm_result_mrr = data_science.mean_reciprocal_rank.run(sorted_results_list, user_id)
+            #algorithm_result_mrr = data_science.mean_reciprocal_rank.run(sorted_results_list, user_id)
+            algorithm_result_pri = data_science.formulas.run(sorted_results_list, user_id)
+            pri_scores[task['id']] = algorithm_result_pri
             #ndcg_scores[task['id']] = algorithm_result_ndcg
-            mrr_scores[task['id']] = algorithm_result_mrr
+            #mrr_scores[task['id']] = algorithm_result_mrr
     #print("NDCG SCORES: ")
     #print(ndcg_scores)
-    print("MRR SCORES: ")
-    print(mrr_scores)
+    #print("MRR SCORES: ")
+    #print(mrr_scores)
+    print("PRI SCORES: ")
+    print(pri_scores)
     #average_ndcg = sum(ndcg_scores.values()) / len(ndcg_scores)
-    average_mrr = sum(mrr_scores.values()) / len(mrr_scores)
+    #average_mrr = sum(mrr_scores.values()) / len(mrr_scores)
+    average_pri = sum(pri_scores.values()) / len(pri_scores)
 
     #print("Average:", average_ndcg)
-    print("Average: ", average_mrr)
+    #print("Average: ", average_mrr)
+    print("Average: " , average_pri)
 

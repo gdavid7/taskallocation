@@ -87,7 +87,7 @@ def run(sprint_ranking:list, sprint_actual_user:str):
         rank = sprint_ranking.index(sprint_actual_user) + 1
     except ValueError:
         rank = len(sprint_ranking) + 1
-        
+    
     print(f"  Actual assigned user: {sprint_actual_user}")
     print(f"  Rank position: {rank}")
     print(f"  MRR score: {mrr_score:.4f}")
