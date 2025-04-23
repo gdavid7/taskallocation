@@ -6,7 +6,8 @@ import models.child_classes.codebert_model
 import data_exports.testingEmbeds
 import JSON_METHODS.import_logic
 import model_comparison.compare_task
-import data_science.ranking_algorithm
+import data_science.ndcg
+import data_science.mean_reciprocal_rank
 import JSON_METHODS.data_split
 
 print("PERFORMANCE BASED TAASK ALLOCATION WITH PAST SPRINT DATA")
@@ -33,14 +34,22 @@ if __name__ == '__main__':
     testingData = JSON_METHODS.import_logic.load_data("data_exports/test_data.json")    
 
     ndcg_scores = {}
+    mrr_scores = {}
     for user_id, tasks in testingData.items():
         for task in tasks:
             task_results = model_comparison.compare_task.compare_single_task(model, task, trainingData)
             sorted_results_list = sorted(task_results.keys(), key=lambda k: task_results[k], reverse=True)
-            algorithm_result = data_science.ranking_algorithm.run(sorted_results_list, user_id)
-            ndcg_scores[task['id']] = algorithm_result
-    print(ndcg_scores)
-    average = sum(ndcg_scores.values()) / len(ndcg_scores)
+            #algorithm_result_ndcg = data_science.ndcg.run(sorted_results_list, user_id)
+            algorithm_result_mrr = data_science.mean_reciprocal_rank.run(sorted_results_list, user_id)
+            #ndcg_scores[task['id']] = algorithm_result_ndcg
+            mrr_scores[task['id']] = algorithm_result_mrr
+    #print("NDCG SCORES: ")
+    #print(ndcg_scores)
+    print("MRR SCORES: ")
+    print(mrr_scores)
+    #average_ndcg = sum(ndcg_scores.values()) / len(ndcg_scores)
+    average_mrr = sum(mrr_scores.values()) / len(mrr_scores)
 
-    print("Average:", average)
+    #print("Average:", average_ndcg)
+    print("Average: ", average_mrr)
 

@@ -1,7 +1,42 @@
 import numpy as np
 import math
 from typing import List
+"""
+RANKING METRICS FOR SPRINT ASSIGNMENT EVALUATION
 
+This module implements different metrics for evaluating how well a model ranks users
+for sprint assignments. Two key metrics are implemented:
+
+1. Mean Reciprocal Rank (MRR):
+   - A ranking metric that focuses only on the position of the first relevant item
+   - Formula: MRR = 1/rank, where rank is the position of the actual assigned user
+   - Range: [0, 1] where 1 is perfect (actual user ranked first)
+   - Interpretation: Directly indicates the reciprocal of the rank position
+     * MRR = 1.0 → user ranked 1st
+     * MRR = 0.5 → user ranked 2nd
+     * MRR = 0.33 → user ranked 3rd
+   - Advantages:
+     * Simple to calculate and interpret
+     * Focuses on a single correct answer, which matches sprint assignment
+     * More intuitive representation of rank position
+
+2. Normalized Discounted Cumulative Gain (NDCG):
+   - A ranking metric that considers both position and relevance of items
+   - In our implementation (where only one user is relevant):
+     * DCG = 1/log2(rank+1)
+     * IDCG = 1.0 (ideal DCG if user was ranked first)
+     * NDCG = DCG/IDCG
+   - Range: [0, 1] where 1 is perfect (actual user ranked first)
+   - Interpretation: Penalizes lower rankings logarithmically
+   - Advantages:
+     * Industry-standard metric for ranking evaluation
+     * Can be extended to handle multiple relevant items with graded relevance
+     * Penalizes lower rankings less harshly than MRR
+
+For sprint assignment evaluation where there is exactly one "correct" assignment,
+MRR is often more appropriate as it directly measures the rank position of the
+actually assigned user.
+"""
 
 def calculate_ndcg(predicted_ranking: List[str], actual_assigned_user: str) -> float:
     print(predicted_ranking)
