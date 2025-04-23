@@ -63,6 +63,8 @@ def run(sprint_ranking:list, sprint_actual_user:str):
     print(f"  Actual assigned user: {sprint_actual_user}")
     print(f"  Rank position: {rank}")
     print(f"  nDCG score: {ndcg_score:.4f}")
+    return ndcg_score
+
 
 
 
