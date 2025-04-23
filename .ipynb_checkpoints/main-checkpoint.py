@@ -17,7 +17,7 @@ if __name__ == '__main__':
     # LOAD THE MODELS
     model = models.child_classes.codebert_model.Codebert(name="codebert_similarity_model")
     print(model.name())
-    
+    '''
     # PHASE 1: Create the JSON File of Testing Data
     print("Phase 1: Grabbing users and issues from TAWOS Database:")
     user_issues = JSON_METHODS.create_issues_export.user_issues_dict() # Creating the dictionary object
@@ -26,7 +26,7 @@ if __name__ == '__main__':
 
     # SPLIT THE DATA
     JSON_METHODS.data_split.split_data()
-    
+    '''
     
     # Import the training data into an object (80%)
     trainingData = JSON_METHODS.import_logic.load_data("data_exports/train_data.json")
