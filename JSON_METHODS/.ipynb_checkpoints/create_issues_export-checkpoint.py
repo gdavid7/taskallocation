@@ -21,8 +21,8 @@ def convertToEmbed(model, issuesDict:dict) -> dict:
             issue["embed"] = model.convert(issue)
             #print("Issue being converted now")
             #issuesEmbeds.append(model.convert(issue)) # This syntax is wrong so it needs to be changed
-        if totalProcessed >= 20:
-            break
+        #if totalProcessed >= 20:
+        #    break
     return newDict
             
         
